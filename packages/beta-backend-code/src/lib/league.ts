@@ -1,6 +1,6 @@
 //Overarching League class file (with which the user interacts with in the front end) that contains state variables on players, overall scores, week number, league parameters (budget constraint, duplicate bets, number of weeks etc…), Game objects (for each week)
 
-import './gameClass';
+import './Game';
 
 class League {
   currWeek: number;
