@@ -35,16 +35,27 @@ export class League {
   /*
   Following functions are only callable by the league admin
   */
-  addPlayer(playerID: number) {
-    //add player to league
-    // create the player object
-  }
+  //Functions regarding adding, removing, editing players:
+  // addPlayer(name: string) {
+  //   let id = this.players.size;
+  //   let newPlayer = new Player(id, name);
+  //   this.players.set(id, newPlayer);
+  //   return newPlayer;
+  // }
 
-  removePlayer() {
-    //remove player from league
-  }
+  // removePlayer(id: number): void {
+  //   let removed = this.players[id];
+  //   this.players.delete(id);
+  //   return removed;
+  // }
 
-  editPlayer(playerID: number) {}
+  // editPlayer(id: number, name: string) {
+  //   let playerOriginal = this.players.get(id);
+  //   playerOriginal.setName(name);
+  //   this.players.set(id, playerOriginal);
+  //   /*returns updated player */
+  //   return playerOriginal;
+  // }
 }
 
 export default League;
