@@ -1,4 +1,5 @@
-import { Bet } from './bet';
+import { Bet } from './Bet';
+import { BetIdentifier } from './BetIdentifier';
 
 export class Player {
   bets: Array<Bet>;
