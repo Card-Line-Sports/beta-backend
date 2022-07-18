@@ -44,7 +44,8 @@ BetIdentifier
 // Bet Class: current live odds (at the time the player creates a new bet instance), description, status (upcoming, in progress, completed). 
 */
 
-import { Player } from './player';
+import { Player } from './Player';
+import { BetIdentifier } from './BetIdentifier';
 export class gameState {
   // maps player id to Player object
   players: Map<number, Player>;
@@ -100,27 +101,5 @@ export class gameState {
       updatedBetIdentifier.setOdds(lineData[i][1]);
       this.currBets.set(id, updatedBetIdentifier);
     }
-  }
-
-  //Functions regarding adding, removing, editing players:
-  addPlayer(name: string) {
-    let id = this.players.size;
-    let newPlayer = new Player(id, name);
-    this.players.set(id, newPlayer);
-    return newPlayer;
-  }
-
-  removePlayer(id: number): void {
-    let removed = this.players[id];
-    this.players.delete(id);
-    return removed;
-  }
-
-  editPlayer(id: number, name: string) {
-    let playerOriginal = this.players.get(id);
-    playerOriginal.setName(name);
-    this.players.set(id, playerOriginal);
-    /*returns updated player */
-    return playerOriginal;
   }
 }
