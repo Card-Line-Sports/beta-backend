@@ -1,8 +1,8 @@
 //Overarching League class file (with which the user interacts with in the front end) that contains state variables on players, overall scores, week number, league parameters (budget constraint, duplicate bets, number of weeks etc…), Game objects (for each week)
 
-import './Game';
+import { gameState } from './Game';
 
-class League {
+export class League {
   currWeek: number;
   cumulativeRankingsSum?: Map<number, number>; //map from player ID to their total rankings sum from each week
   currRankings?: Map<number, number>; //map from player ID to their current rank (as calculated from cumulativeRankings)
@@ -14,6 +14,7 @@ class League {
   constructor(totalWeeks: number) {
     this.currWeek = 1;
 
+    this.gameStates = new Map<number, gameState>();
     for (let i = 1; i <= totalWeeks; i++) {
       this.gameStates.set(i, new gameState()); // pass into gamestate some array of players IDs, weekly budget
     }
@@ -43,5 +44,7 @@ class League {
     //remove player from league
   }
 
-  editPlayer(playerID: number, )
+  editPlayer(playerID: number) {}
 }
+
+export default League;
