@@ -1,4 +1,5 @@
 class Player {
+    //Active bets (i.e. undetermined)
     bets: Array<Bet>;
     budget: number;
     playerId: number;
@@ -14,7 +15,12 @@ class Player {
     addBets(newBet: Bet): void {
         this.bets.push(newBet);
     }
-
+   
+    /**
+     * @dev Called when BetIdentifier result is determined to update all active bets
+     * @params BetIdentifier with result determined. 
+     * @return Void
+     */
     updateBets(betId: BetIdentifier): void {
         let id = betId.getId();
         let index = 0;

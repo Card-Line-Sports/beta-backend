@@ -15,7 +15,7 @@ class League {
     this.currWeek = 1;
 
     for (let i = 1; i <= totalWeeks; i++) {
-      this.gameStates.set(i, new gameState()); // pass into gamestate some array of players,
+      this.gameStates.set(i, new gameState()); // pass into gamestate some array of players IDs, weekly budget
     }
   }
 
@@ -42,4 +42,6 @@ class League {
   removePlayer() {
     //remove player from league
   }
+
+  editPlayer(playerID: number, )
 }

@@ -1,10 +1,10 @@
 class Bet {
     odds: Array<number>;
-    id: number;
+    betIdentifierID: number;
     amount: number;
-    constructor (odds: Array<number>, id: number, amount: number) {
+    constructor (odds: Array<number>, betIdentifierID: number, amount: number) {
         this.odds = odds;
-        this.id = id;
+        this.betIdentifierID = betIdentifierID;
         this.amount = amount
     }
 

@@ -44,67 +44,23 @@ BetIdentifier
 // Bet Class: current live odds (at the time the player creates a new bet instance), description, status (upcoming, in progress, completed). 
 */
 class gameState {
-<<<<<<< Updated upstream
-  //Will always be correctly sorted by score
-  playerScores: Array<[number, number]>;
-
-  playerBudgets: Array<[number, number]>;
-
-  //first entry is the ID for the bet, next entry is the odds ratio
-  lineData: Array<[number, [number, number]]>;
-
-  constructor(size: number, lineData: Array<[number, [number, number]]>) {
-    //should take: array of Player objects, the budget for this week, lineData,
-    //Initial score and budget, 0 and 100 respectively
-    for (let i = 0; i < size; i++) {
-      this.playerScores.push([i, 0]);
-      this.playerBudgets.push([i, 100]);
-      this.lineData = lineData;
-    }
-  }
-  sortScores(): void {
-    /*
-        - Sorts players scores based off of second element in tuple (the score value), and returns the array
-        */
-  }
-  getScores(): Array<[number, number]> {
-    return this.playerScores;
-  }
-
-  getBudgets(): Array<[number, number]> {
-    return this.playerBudgets;
-  }
-
-  getLineData(): Array<[number, [number, number]]> {
-    return this.lineData;
-  }
-
-  makeBet(player1: number, betInd: number, betSize: number): void {
-    /*
-        - Player makes a bet, bet is pending and should be stored somewhere
-        
-        */
-  }
-
-  updateBet(betInd: number): void {
-    /*
-        - Updates bets, removes bet from current bets
-=======
     // maps player id to Player object
-    players:  Map<number, Player>; 
+    players:  Array<Player>; 
 
     playerRankings: Array<number>;
 
     //id to betIdentifier
     currBets: Map<number, BetIdentifier>;
 
-
-    constructor() {
-        this.players = new Map();        
-        this.playerRankings = new Array<number>;
+    
+    constructor(budget: Map<number, number>, players: Array<Player>) {
+      //initialize budgets in here
+        this.players = new Array();        
+        this.playerRankings = new Array<number>();
         this.currBets = new Map();
     }
     //Functions regarding adding a bet
+    //TODO: create a script to select bets from webscraper and call addBet and updateBet periodically
     addBet(odds: Array<number>, id: number, info: string) {
         let newBetIdentifier = new BetIdentifier(odds, id, info);
         this.currBets.set(id, newBetIdentifier);
@@ -117,15 +73,16 @@ class gameState {
         this.currBets.set(id, updatedBetIdentifier);
         return updatedBetIdentifier;
     }
+
     //Functions regarding ranking
 
 
     updateRankings() { 
         console.log('updating rankings');
-        let playerIdBalance = new Array<[number, number]>;
-        for (let key of this.players.keys()) {
-            let tempPlayer = this.players.get(key);
-            playerIdBalance.push([key, tempPlayer.getBudget()]);
+        let playerIdBalance = new Array<[number, number]>();
+        for (let player of this.players) {
+            let tempPlayer = player;
+            playerIdBalance.push([tempPlayer.playerId, tempPlayer.getBudget()]);
         }
         /*O(n^2) sorting */
         let sortedArray = playerIdBalance.sort((a,b) => b[1] - a[1]);
@@ -151,35 +108,27 @@ class gameState {
     
 
 
-    //Functions regarding adding, removing, editing players:
-    addPlayer(name: string){
-        let id = this.players.size;
-        let newPlayer = new Player(id, name);
-        this.players.set(id, newPlayer);
-        return newPlayer;
-    }
+    // //Functions regarding adding, removing, editing players:
+    // addPlayer(name: string){
+    //     let id = this.players.size;
+    //     let newPlayer = new Player(id, name);
+    //     this.players.set(id, newPlayer);
+    //     return newPlayer;
+    // }
     
-    removePlayer(id: number): void {
-        let removed = this.players[id];
-        this.players.delete(id);
-        return removed;
-    }
+    // removePlayer(id: number): void {
+    //     let removed = this.players[id];
+    //     this.players.delete(id);
+    //     return removed;
+    // }
 
-    editPlayer(id: number, name: string) {
-        let playerOriginal = this.players.get(id);
-        playerOriginal.setName(name);
-        this.players.set(id, playerOriginal);
-        /*returns updated player */
-        return playerOriginal;
-    } 
->>>>>>> Stashed changes
+    // editPlayer(id: number, name: string) {
+    //     let playerOriginal = this.players.get(id);
+    //     playerOriginal.setName(name);
+    //     this.players.set(id, playerOriginal);
+    //     /*returns updated player */
+    //     return playerOriginal;
+    // } 
 
 
-<<<<<<< Updated upstream
-        - Calls sort scores
-        */
-  }
 }
-=======
-}
->>>>>>> Stashed changes

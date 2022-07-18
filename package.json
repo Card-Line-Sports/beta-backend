@@ -18,5 +18,14 @@
   "homepage": "https://github.com/Card-Line-Sports/beta-backend#readme",
   "devDependencies": {
     "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "@types/mocha": "^9.1.1",
+    "axios": "^0.27.2",
+    "chai": "^4.3.6",
+    "cheerio": "^1.0.0-rc.12",
+    "mocha": "^10.0.0",
+    "save": "^2.5.0",
+    "save-dev": "^0.0.1-security"
   }
 }
