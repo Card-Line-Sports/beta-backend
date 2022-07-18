@@ -47,79 +47,96 @@ BetIdentifier
 import { Player } from './Player';
 import { BetIdentifier } from './BetIdentifier';
 export class gameState {
-  // maps player id to Player object
-  players: Map<number, Player>;
+	players: Map<number, Player>; // Maps player id to Player object
+	playerRankings: Array<number>;
 
-  playerRankings: Array<number>;
+	currBets: Map<number, BetIdentifier>; // Maps betIdentifier ID to betIdentifier
 
-  //id to betIdentifier
-  currBets: Map<number, BetIdentifier>;
+	constructor() {
+		this.players = new Map();
+		this.playerRankings = new Array<number>();
+		this.currBets = new Map();
+	}
 
-  constructor() {
-    this.players = new Map();
-    this.playerRankings = new Array<number>();
-    this.currBets = new Map();
-  }
-  //Functions regarding adding a bet
-  addBet(odds: Array<number>, id: number, info: string) {
-    let newBetIdentifier = new BetIdentifier(odds, id, info);
-    this.currBets.set(id, newBetIdentifier);
-    return newBetIdentifier;
-  }
+	/**
+	 * @dev adds a new BetIdentifier in the pool of current bets, sets in currBets mapping
+	 * @param odds line data of the BetIdentifier to be added
+	 * @param id id number of the BetIdentifier (should probably auto generate this in BetIdentifier instead)
+	 * @param info string description of the BetIdentifier
+	 * @returns the new BetIdentifier instance
+	 */
+	addBet(odds: Array<number>, id: number, info: string) {
+		let newBetIdentifier = new BetIdentifier(odds, id, info);
+		this.currBets.set(id, newBetIdentifier);
+		return newBetIdentifier;
+	}
 
-  updateBet(odds: Array<number>, id: number) {
-    let updatedBetIdentifier = this.currBets.get(id);
-    updatedBetIdentifier.setOdds(odds);
-    this.currBets.set(id, updatedBetIdentifier);
-    return updatedBetIdentifier;
-  }
-  //Functions regarding ranking
+	/**
+	 * @dev updates the real-time odds of the bet with given id, sets in currBets mapping
+	 * @param odds line data of the given bet
+	 * @param id id number of the BetIdentifier
+	 * @returns the updated bet identifier object
+	 */
+	updateBetOdds(odds: Array<number>, id: number) {
+		let updatedBetIdentifier = this.currBets.get(id);
+		updatedBetIdentifier.setOdds(odds);
+		this.currBets.set(id, updatedBetIdentifier);
+		return updatedBetIdentifier;
+	}
 
-  updateRankings() {
-    console.log('updating rankings');
-    let playerIdBalance = new Array<[number, number]>();
-    for (let key of this.players.keys()) {
-      let tempPlayer = this.players.get(key);
-      playerIdBalance.push([key, tempPlayer.getBudget()]);
-    }
-    /*O(n^2) sorting */
-    let sortedArray = playerIdBalance.sort((a, b) => b[1] - a[1]);
-    return sortedArray;
-  }
+	makeBet(playerId: number, betId: number, wager: number) {
+		// check player has adequate balance
+		// if so, check the current odds of the betIdentifier with betId and create a new
+		// bet for the player if it is a new betIdentifier
+		// in the case that it is not a new betIdentifier, remove the existing one from their bets array and add the new one
+	}
 
-  //Functions regarding processing odds data
-  //line Data will look something like this,
-  //lineData: Array<[number, [number, number]]>
+	//Functions regarding ranking
+	updateRankings() {
+		console.log('updating rankings');
+		let playerIdBalance = new Array<[number, number]>();
+		for (let key of this.players.keys()) {
+			let tempPlayer = this.players.get(key);
+			playerIdBalance.push([key, tempPlayer.getBudget()]);
+		}
+		/*O(n^2) sorting */
+		let sortedArray = playerIdBalance.sort((a, b) => b[1] - a[1]);
+		return sortedArray;
+	}
 
-  //Note: when setLineData is called it is assumed all necessary bets were
-  //instatiated i.e. addBet is called elsewhere so that lineData is only
-  //updated bets known to gamestate
-  setLineData(lineData: Array<[number, [number, number]]>): void {
-    for (let i = 0; i < lineData.length; i++) {
-      let id = lineData[i][0];
-      let updatedBetIdentifier = this.currBets.get(id);
-      updatedBetIdentifier.setOdds(lineData[i][1]);
-      this.currBets.set(id, updatedBetIdentifier);
-    }
-  }
+	//Functions regarding processing odds data
+	//line Data will look something like this,
+	//lineData: Array<[number, [number, number]]>
 
-  //Functions regarding adding, removing, editing players:
-  addPlayer(id: number, instance: Player) {
-    this.players.set(id, instance);
-    return instance;
-  }
+	//Note: when setLineData is called it is assumed all necessary bets were
+	//instatiated i.e. addBet is called elsewhere so that lineData is only
+	//updated bets known to gamestate
+	setLineData(lineData: Array<[number, [number, number]]>): void {
+		for (let i = 0; i < lineData.length; i++) {
+			let id = lineData[i][0];
+			let updatedBetIdentifier = this.currBets.get(id);
+			updatedBetIdentifier.setOdds(lineData[i][1]);
+			this.currBets.set(id, updatedBetIdentifier);
+		}
+	}
 
-  removePlayer(id: number): void {
-    let removed = this.players[id];
-    this.players.delete(id);
-    return removed;
-  }
+	//Functions regarding adding, removing, editing players:
+	addPlayer(id: number, instance: Player) {
+		this.players.set(id, instance);
+		return instance;
+	}
 
-  editPlayerName(id: number, name: string) {
-    let playerOriginal = this.players.get(id);
-    playerOriginal.setName(name);
-    this.players.set(id, playerOriginal);
-    /*returns updated player */
-    return playerOriginal;
-  }
+	removePlayer(id: number): void {
+		let removed = this.players[id];
+		this.players.delete(id);
+		return removed;
+	}
+
+	editPlayerName(id: number, name: string) {
+		let playerOriginal = this.players.get(id);
+		playerOriginal.setName(name);
+		this.players.set(id, playerOriginal);
+		/*returns updated player */
+		return playerOriginal;
+	}
 }

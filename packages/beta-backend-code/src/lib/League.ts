@@ -56,7 +56,16 @@ export class League {
 	/*
   Following functions are only callable by the league admin
   */
-	registerPlayer(name: string) {}
+	addPlayer(playerID: number) {
+		//add player to league
+		// create the player object
+	}
+
+	removePlayer() {
+		//remove player from league
+	}
+
+	editPlayer(playerID: number) {}
 }
 
 export default League;
