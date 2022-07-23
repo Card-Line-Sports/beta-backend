@@ -25,20 +25,20 @@ export class League {
   */
 	startCurrWeek(): gameState {
 		const currGameState = this.gameStates.get(this.currWeek);
-		currGameState.setLineData();
+		currGameState.setLineData([[0, [1, 2]]]);
 		return currGameState;
 	}
 
 	/* Ends the current week's game. Called by internal server at the end of a week. Calls final result compilation functions.
 	 */
-	endCurrWeek() :  {
+	endCurrWeek() {
 		//get bet results
 		//update player budgets
 		//update final rankings of week
 		//update cumulative rankings in league class
 		this.currWeek++;
 
-    //if last week, then call 
+		//if last week, then call
 	}
 
 	/*
