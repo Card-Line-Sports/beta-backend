@@ -102,4 +102,24 @@ export class gameState {
       this.currBets.set(id, updatedBetIdentifier);
     }
   }
+
+  //Functions regarding adding, removing, editing players:
+  addPlayer(id: number, instance: Player) {
+    this.players.set(id, instance);
+    return instance;
+  }
+
+  removePlayer(id: number): void {
+    let removed = this.players[id];
+    this.players.delete(id);
+    return removed;
+  }
+
+  editPlayerName(id: number, name: string) {
+    let playerOriginal = this.players.get(id);
+    playerOriginal.setName(name);
+    this.players.set(id, playerOriginal);
+    /*returns updated player */
+    return playerOriginal;
+  }
 }
