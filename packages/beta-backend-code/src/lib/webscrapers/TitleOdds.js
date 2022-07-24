@@ -13,7 +13,6 @@ response) {
     var $ = cheerio.load(html); // Load the HTML string into cheerio
     var oddsTable = $('#post-88358 > div.entry-content > table:nth-child(5) > tbody > tr'); // Parse the HTML and extract just whatever code contains .statsTableContainer and has tr inside
     var titleOdds = [];
-    console.log(oddsTable);
     oddsTable.each(function (i, elem) {
         var team = $(elem).find('td:nth-child(1)').text(); // Parse the rank
         var odds = $(elem).find('td:nth-child(2)').text();
