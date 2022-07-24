@@ -1,4 +1,3 @@
-console.log('hello cardline');
 import axios from 'axios';
 import * as cheerio from 'cheerio';
 
@@ -18,8 +17,6 @@ AxiosInstance.get(BASE_URL)
         const $ = cheerio.load(html); // Load the HTML string into cheerio
         const oddsTable = $('#post-88358 > div.entry-content > table:nth-child(5) > tbody > tr'); // Parse the HTML and extract just whatever code contains .statsTableContainer and has tr inside
         const titleOdds: TitleOddsData[] = [];
-        console.log(oddsTable);
-
         oddsTable.each((i, elem) => {
             const team: string = $(elem).find('td:nth-child(1)').text(); // Parse the rank
             const odds: string = $(elem).find('td:nth-child(2)').text();
