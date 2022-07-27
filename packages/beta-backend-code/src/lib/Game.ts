@@ -84,6 +84,12 @@ export class gameState {
 		return updatedBetIdentifier;
 	}
 
+	/**
+	 * @dev allows player to place a new bet on a BetIdentifier
+	 * @param playerId the id of the player making the bet
+	 * @param betId the id of the BetIdentifier
+	 * @param wager the amount of currency wagered by the player
+	 */
 	makeBet(playerId: number, betId: number, wager: number) {
 		// check player has adequate balance
 		// if so, check the current odds of the betIdentifier with betId and create a new
@@ -91,7 +97,10 @@ export class gameState {
 		// in the case that it is not a new betIdentifier, remove the existing one from their bets array and add the new one
 	}
 
-	//Functions regarding ranking
+	/**
+	 *
+	 * @returns
+	 */
 	updateRankings() {
 		console.log('updating rankings');
 		let playerIdBalance = new Array<[number, number]>();
@@ -104,21 +113,7 @@ export class gameState {
 		return sortedArray;
 	}
 
-	//Functions regarding processing odds data
-	//line Data will look something like this,
-	//lineData: Array<[number, [number, number]]>
-
-	//Note: when setLineData is called it is assumed all necessary bets were
-	//instatiated i.e. addBet is called elsewhere so that lineData is only
-	//updated bets known to gamestate
-	setLineData(lineData: Array<[number, [number, number]]>): void {
-		for (let i = 0; i < lineData.length; i++) {
-			let id = lineData[i][0];
-			let updatedBetIdentifier = this.currBets.get(id);
-			updatedBetIdentifier.setOdds(lineData[i][1]);
-			this.currBets.set(id, updatedBetIdentifier);
-		}
-	}
+	// DELETED setLineData - handling batch odds updating in League class by calling update bet odds on all bets in pool
 
 	//Functions regarding adding, removing, editing players:
 	addPlayer(id: number, instance: Player) {
@@ -126,7 +121,7 @@ export class gameState {
 		return instance;
 	}
 
-	removePlayer(id: number): void {
+	removePlayer(id: number) {
 		let removed = this.players[id];
 		this.players.delete(id);
 		return removed;

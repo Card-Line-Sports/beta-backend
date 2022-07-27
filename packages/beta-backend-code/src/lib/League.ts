@@ -4,6 +4,7 @@ import { gameState } from './Game';
 
 export class League {
 	currWeek: number;
+	currGameState: gameState;
 	cumulativeRankingsSum?: Map<number, number>; //map from player ID to their total rankings sum from each week
 	currRankings?: Map<number, number>; //map from player ID to their current rank (as calculated from cumulativeRankings)
 	gameStates: Map<number, gameState>; //map from week number to gameState object for that week
@@ -20,14 +21,18 @@ export class League {
 		}
 	}
 
-	/* Start current week's game, called once a week by our internal server. Returns the gameState object upon which the user can
-  make function calls
-  */
-	startCurrWeek(): gameState {
-		const currGameState = this.gameStates.get(this.currWeek);
-		currGameState.setLineData([[0, [1, 2]]]);
-		return currGameState;
+	/**
+	 * @dev starts the current week's game, called once a week by internal server.
+	 */
+	startCurrWeek() {
+		this.currGameState = this.gameStates.get(this.currWeek);
+		this.updateWeekOdds();
 	}
+
+	/**
+	 * @dev iterates through the week's pool of bets, updating them to match the most recent real time lines
+	 */
+	updateWeekOdds() {}
 
 	/* Ends the current week's game. Called by internal server at the end of a week. Calls final result compilation functions.
 	 */
