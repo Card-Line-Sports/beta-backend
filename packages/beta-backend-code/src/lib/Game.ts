@@ -73,6 +73,13 @@ export class gameState {
     this.currBets.set(id, updatedBetIdentifier);
     return updatedBetIdentifier;
   }
+
+  mergeBet(idOne: number, idTwo: number) {
+    let tempBet = this.currBets.get(idOne);
+    let size = this.currBets.size
+    tempBet = tempBet.mergeBetIdentifier(this.currBets.get(idTwo), size);
+    this.currBets.set(size, tempBet,);
+  }
   //Functions regarding ranking
 
   updateRankings() {

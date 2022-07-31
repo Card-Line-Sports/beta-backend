@@ -32,4 +32,19 @@ export class BetIdentifier {
   getResults() {
     return this.result;
   }
+
+  /**
+   * Returns a new Bet Identifier to be added in the game state
+   * NewId is simply the size of the current list containing all BetIdentifiers 
+   * MergeInfo will be decided when info format is decided
+   * MergeOdds calculated by finding probability both events occur
+   */
+  mergeBetIdentifier(mergeBet: BetIdentifier, newId: number) {
+    let mergeId = newId;
+    let mergeInfo = "";
+    let otherOdds = mergeBet.getOdds;
+    let mergeOdds = [otherOdds[1]*this.odds[1], (otherOdds[1] + otherOdds[0])*(this.odds[0] + this.odds[1]) - otherOdds[1]*this.odds[1]];
+    let mergeResult = false;
+    return new BetIdentifier(mergeOdds, mergeId, mergeInfo);
+  }
 }
