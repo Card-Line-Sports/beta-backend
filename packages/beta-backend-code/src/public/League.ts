@@ -3,21 +3,25 @@
 import { gameState } from './Game';
 
 export class League {
+	name: string;
 	currWeek: number;
+	totalWeeks: number;
 	currGameState: gameState;
 	cumulativeRankingsSum?: Map<number, number>; //map from player ID to their total rankings sum from each week
 	currRankings?: Map<number, number>; //map from player ID to their current rank (as calculated from cumulativeRankings)
-	gameStates: Map<number, gameState>; //map from week number to gameState object for that week
+	gameStates: gameState[]; //map from week number to gameState object for that week
 
 	//game state initialization
 	//weekly budget, array of players
 
-	constructor(totalWeeks: number) {
+	constructor(name: string, totalWeeks: number) {
+		this.name = name;
+		this.totalWeeks = totalWeeks;
 		this.currWeek = 1;
 
-		this.gameStates = new Map<number, gameState>();
+		this.gameStates = [];
 		for (let i = 1; i <= totalWeeks; i++) {
-			this.gameStates.set(i, new gameState()); // pass into gamestate some array of players IDs, weekly budget
+			this.gameStates.push(new gameState()); // pass into gamestate some array of players IDs, weekly budget
 		}
 	}
 
@@ -25,7 +29,7 @@ export class League {
 	 * @dev starts the current week's game, called once a week by internal server.
 	 */
 	startCurrWeek() {
-		this.currGameState = this.gameStates.get(this.currWeek);
+		this.currGameState = this.gameStates[this.currWeek];
 		this.updateWeekOdds();
 	}
 

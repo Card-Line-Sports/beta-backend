@@ -135,3 +135,5 @@ export class gameState {
 		return playerOriginal;
 	}
 }
+
+export default gameState;
