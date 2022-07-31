@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Cardline Sports - Game</title>
+		<h1 id="game-header">Week:</h1>
+		<script src="socket.io/socket.io.js"></script>
+		<script src="./appBundle.js" charset="utf-8"></script>
+	</head>
+	<body data-title="game">
+		<div id="game-info"></div>
+		<div>
+			<button id="add-bet">Add Bet</button>
+			<label>Odds</label>
+			<input type="text" maxlength="512" id="add-bet-param1" />
+			<label>ID</label>
+			<input type="text" maxlength="512" id="add-bet-param2" />
+			<label>Info</label>
+			<input type="text" maxlength="512" id="add-bet-param3" />
+		</div>
+		<div>
+			<button id="update-bet">Update Bet Odds</button>
+			<label>Odds</label>
+			<input type="text" maxlength="512" id="update-bet-param1" />
+			<label>ID</label>
+			<input type="text" maxlength="512" id="update-bet-param2" />
+		</div>
+		<div>
+			<button id="update-bet">Make Bet</button>
+			<label>BetID</label>
+			<input type="text" maxlength="512" id="make-bet-param1" />
+			<label>Wager</label>
+			<input type="text" maxlength="512" id="make-bet-param2" />
+		</div>
+		<div>
+			<button id="view-rankings">View Rankings</button>
+		</div>
+	</body>
+</html>

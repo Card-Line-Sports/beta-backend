@@ -3,31 +3,40 @@
 import { gameState } from './Game';
 
 export class League {
+	name: string;
 	currWeek: number;
+	totalWeeks: number;
+	currGameState: gameState;
 	cumulativeRankingsSum?: Map<number, number>; //map from player ID to their total rankings sum from each week
 	currRankings?: Map<number, number>; //map from player ID to their current rank (as calculated from cumulativeRankings)
-	gameStates: Map<number, gameState>; //map from week number to gameState object for that week
+	gameStates: gameState[]; //map from week number to gameState object for that week
 
 	//game state initialization
 	//weekly budget, array of players
 
-	constructor(totalWeeks: number) {
+	constructor(name: string, totalWeeks: number) {
+		this.name = name;
+		this.totalWeeks = totalWeeks;
 		this.currWeek = 1;
 
-		this.gameStates = new Map<number, gameState>();
+		this.gameStates = [];
 		for (let i = 1; i <= totalWeeks; i++) {
-			this.gameStates.set(i, new gameState()); // pass into gamestate some array of players IDs, weekly budget
+			this.gameStates.push(new gameState()); // pass into gamestate some array of players IDs, weekly budget
 		}
 	}
 
-	/* Start current week's game, called once a week by our internal server. Returns the gameState object upon which the user can
-  make function calls
-  */
-	startCurrWeek(): gameState {
-		const currGameState = this.gameStates.get(this.currWeek);
-		currGameState.setLineData([[0, [1, 2]]]);
-		return currGameState;
+	/**
+	 * @dev starts the current week's game, called once a week by internal server.
+	 */
+	startCurrWeek() {
+		this.currGameState = this.gameStates[this.currWeek];
+		this.updateWeekOdds();
 	}
+
+	/**
+	 * @dev iterates through the week's pool of bets, updating them to match the most recent real time lines
+	 */
+	updateWeekOdds() {}
 
 	/* Ends the current week's game. Called by internal server at the end of a week. Calls final result compilation functions.
 	 */
@@ -56,7 +65,16 @@ export class League {
 	/*
   Following functions are only callable by the league admin
   */
-	registerPlayer(name: string) {}
+	addPlayer(playerID: number) {
+		//add player to league
+		// create the player object
+	}
+
+	removePlayer() {
+		//remove player from league
+	}
+
+	editPlayer(playerID: number) {}
 }
 
 export default League;
