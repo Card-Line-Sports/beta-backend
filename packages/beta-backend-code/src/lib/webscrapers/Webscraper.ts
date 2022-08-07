@@ -22,7 +22,7 @@ AxiosInstance.get(BASE_URL)
         const statsTable = $('.statsTableContainer > tr'); // Parse the HTML and extract just whatever code contains .statsTableContainer and has tr inside
         const topScorers: PlayerData[] = [];
         console.log(statsTable);
-
+      
         statsTable.each((i, elem) => {
             const rank: number = parseInt($(elem).find('.rank > strong').text()); // Parse the rank
             const name: string = $(elem).find('.playerName > strong').text(); // Parse the name
